@@ -54,6 +54,8 @@ typedef struct
 	char *value;
 } Alias;
 
+Alias aliases[MAX_ALIASES];
+int alias_count = 0;
 
 /* FUNCTION PROTOTYPES  */
 
