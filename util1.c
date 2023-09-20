@@ -66,7 +66,7 @@ int builtin_cmd(char *str, char *line, char **argv, int cnt, char **av)
 	built_in cmd_check[] = {
 		{"exit", builtin_exit}, /* void (*f)(void) */
 		{"env", builtin_env},
-		{"cd", cd_builtin},
+		/* {"cd", cd_builtin}, */
 		{"setenv", setenv_builtin},
 		{"unsetenv", unsetenv_builtin},
 		/* {"alias", alias_builtin}, */

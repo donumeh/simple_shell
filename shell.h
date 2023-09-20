@@ -40,24 +40,6 @@ typedef struct builtin
 } built_in;
 
 
-/**
- * struct alias - structure to hold an alias
- * @name: the name of alias
- * @value: the value of alias
- *
- * Description: structure holds alias
- */
-
-/* typedef struct
-{
-	char *name;
-	char *value;
-} Alias;
-
-Alias aliases[MAX_ALIASES];
-int alias_count = 0; */
-
-
 /* FUNCTION PROTOTYPES  */
 
 /* keyword functions */
@@ -79,7 +61,7 @@ int print_int(int);
 /* Freeing functions */
 void free_ptr(char *);
 void free_ptr_db(char **);
-void cleanup_aliases();
+void cleanup_aliases(void);
 
 /* utility functions */
 int _strcmp(char *, char *);
@@ -110,6 +92,5 @@ void alias_builtin(char *, char **, int, char **);
 int _atoi(char *);
 /* char *_strtok(char *, char *); */
 ssize_t _getline(char **, size_t *, int);
-
 
 #endif /* SHELL Header File */
