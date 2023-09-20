@@ -31,16 +31,18 @@ int main(int ac, char **av)
 		while (1)
 		{
 			write(STDOUT_FILENO, "($) ", sizeof("($) "));
-			glread = getline(&line, &n, stdin);
+			glread = _getline(&line, &n, STDIN_FILENO);
 			if (glread == -1)
+			{
+				free_ptr(line);
 				return (-1);
-
+			}
 			command = strtok(line, "#"), get_keywords(av, &cmd_cnt, command);
 		}
 	}
 	else
 	{
-		while (getline(&line, &n, stdin) != -1)
+		while (_getline(&line, &n, STDIN_FILENO) != -1)
 		{
 			command = strtok(line, "#");
 			get_keywords(av, &cmd_cnt, command);
