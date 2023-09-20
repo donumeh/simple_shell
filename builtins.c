@@ -38,14 +38,14 @@ void builtin_exit(char *line, char **av, int cnt, char **aargs)
 		}
 		free_ptr(line);
 		free_ptr_db(av);
-		cleanup_aliases();
+		/* cleanup_aliases(); */
 		_exit(error);
 	}
 	else
 	{
 		free_ptr(line);
 		free_ptr_db(av);
-		cleanup_aliases();
+		/* cleanup_aliases(); */
 		_exit(error);
 	}
 }

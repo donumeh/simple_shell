@@ -55,7 +55,7 @@ int main(int ac, char **av)
 		}
 	}
 	free_ptr(line);
-	cleanup_aliases();
+	/* cleanup_aliases(); */
 	return (0);
 }
 

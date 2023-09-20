@@ -69,7 +69,7 @@ int builtin_cmd(char *str, char *line, char **argv, int cnt, char **av)
 		{"cd", cd_builtin},
 		{"setenv", setenv_builtin},
 		{"unsetenv", unsetenv_builtin},
-		{"alias", alias_builtin},
+		/* {"alias", alias_builtin}, */
 		{NULL, NULL}
 	};
 

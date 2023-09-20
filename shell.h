@@ -48,14 +48,15 @@ typedef struct builtin
  * Description: structure holds alias
  */
 
-typedef struct
+/* typedef struct
 {
 	char *name;
 	char *value;
 } Alias;
 
 Alias aliases[MAX_ALIASES];
-int alias_count = 0;
+int alias_count = 0; */
+
 
 /* FUNCTION PROTOTYPES  */
 

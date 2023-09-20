@@ -5,7 +5,7 @@
  *
  * Return: void
  */
-void cleanup_aliases(void)
+/* void cleanup_aliases(void)
 {
 	int i;
     for (i = 0; i < alias_count; i++)
@@ -14,7 +14,7 @@ void cleanup_aliases(void)
 	    free(aliases[i].value);
     }
 }
-
+*/
 /**
  * alias_builtin - creates an alias built in
  * @line: the commands passed
@@ -24,6 +24,7 @@ void cleanup_aliases(void)
  *
  * Return: void
  */
+/*
 void alias_builtin(UNUSED char *line, char** args,
 		UNUSED int cnt, UNUSED char **av)
 {
@@ -91,4 +92,4 @@ void alias_builtin(UNUSED char *line, char** args,
 	{
 		printf("I'm here\n");
 	}
-}
+} */
