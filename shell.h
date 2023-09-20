@@ -90,7 +90,8 @@ void alias_builtin(char *, char **, int, char **);
 
 
 int _atoi(char *);
-/* char *_strtok(char *, char *); */
 ssize_t _getline(char **, size_t *, int);
+ssize_t init_line(char **, size_t *);
+
 
 #endif /* SHELL Header File */

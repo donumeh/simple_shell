@@ -10,27 +10,20 @@
 int main(int ac, char **av)
 {
 	int cmd_cnt = 0;
-	char *line = NULL;
+	char *line = NULL, *command;
 	size_t n = 0;
 	ssize_t glread = 0;
-	char *command;
+	FILE *file;
 
 	if (ac == 2)
 	{
-		FILE *file = fopen(av[1], "r");
+		file = fopen(av[1], "r");
 		if (file == NULL)
-		{
-			dprintf(STDERR_FILENO,
-					"%s: %d: Can't open %s\n",
-					av[0], cmd_cnt, av[1]);
-			exit(127);
-		}
+			dprintf(STDERR_FILENO, "%s: %d: Can't open %s\n",
+					av[0], cmd_cnt, av[1]), exit(127);
 
 		while ((getline(&line, &n, file)) != -1)
-		{
-			command = strtok(line, "#");
-			get_keywords(av, &cmd_cnt, command);
-		}
+			command = strtok(line, "#"), get_keywords(av, &cmd_cnt, command);
 		fclose(file);
 	}
 	else if (isatty(STDIN_FILENO))
@@ -38,24 +31,22 @@ int main(int ac, char **av)
 		while (1)
 		{
 			write(STDOUT_FILENO, "($) ", sizeof("($) "));
-			glread = _getline(&line, &n, STDIN_FILENO);
+			glread = getline(&line, &n, stdin);
 			if (glread == -1)
 				return (-1);
 
-			command = strtok(line, "#");
-			get_keywords(av, &cmd_cnt, command);
+			command = strtok(line, "#"), get_keywords(av, &cmd_cnt, command);
 		}
 	}
 	else
 	{
-		while (_getline(&line, &n, STDIN_FILENO) != -1)
+		while (getline(&line, &n, stdin) != -1)
 		{
 			command = strtok(line, "#");
 			get_keywords(av, &cmd_cnt, command);
 		}
 	}
 	free_ptr(line);
-	/* cleanup_aliases(); */
 	return (0);
 }
 
@@ -195,9 +186,7 @@ char *find_path(char *command)
 	}
 	path_type = (command[0] == '/');
 	if (path_type && access(command, X_OK) == 0)
-	{
 		return (_strdup(command)); /* Return an absolute path */
-	}
 	path_env = _getenv("PATH");
 	if (path_env == NULL)
 		return (NULL);
@@ -211,18 +200,14 @@ char *find_path(char *command)
 			free_ptr(path_env);
 			return (NULL); /*Memory allocation error*/
 		}
-		_strcpy(full_path, path);
-		_strcat(full_path, "/");
+		_strcpy(full_path, path), _strcat(full_path, "/");
 		_strcat(full_path, command);
 		if (access(full_path, X_OK) == 0)
 		{
 			return (full_path);
 		}
 		else
-		{
-			path = strtok(NULL, ":");
-			free_ptr(full_path);
-		}
+			path = strtok(NULL, ":"), free_ptr(full_path);
 	}
 	free_ptr(path_env);
 	return (NULL); /* Command not found*/
