@@ -41,8 +41,6 @@ int main(int ac, char **av)
 	{
 		while (getline(&line, &n, stdin) != -1)
 			command = strtok(line, "#"), get_keywords(av, &cmd_cnt, command);
-		free_ptr(line);
-		return (0);
 	}
 
 	free_ptr(line);
