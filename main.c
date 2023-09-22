@@ -10,7 +10,7 @@
 int main(int ac, char **av)
 {
 	int cmd_cnt = 0;
-	char *line = NULL, *command;
+	char *line = NULL; /* *command; */
 	size_t n = 0;
 	ssize_t glread = 0;
 	FILE *file;
@@ -23,7 +23,10 @@ int main(int ac, char **av)
 					av[0], cmd_cnt, av[1]), exit(127);
 
 		while ((getline(&line, &n, file)) != -1)
-			command = strtok(line, "#"), get_keywords(av, &cmd_cnt, command);
+		{
+			/*command = strtok(line, "#"); */
+			get_keywords(av, &cmd_cnt, line);
+		}
 		fclose(file);
 	}
 	else if (isatty(STDIN_FILENO))
@@ -43,7 +46,7 @@ int main(int ac, char **av)
 		while (getline(&line, &n, stdin) != -1)
 		{
 			/* command = strtok(line, "#"); */
-			get_keywords(av, &cmd_cnt, command);
+			get_keywords(av, &cmd_cnt, line);
 		}
 	}
 
