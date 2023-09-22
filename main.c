@@ -34,13 +34,17 @@ int main(int ac, char **av)
 			glread = getline(&line, &n, stdin);
 			if (glread == -1)
 				return (-1);
-			command = strtok(line, "#"), get_keywords(av, &cmd_cnt, command);
+			/*command = strtok(line, "#");*/
+			get_keywords(av, &cmd_cnt, line);
 		}
 	}
 	else
 	{
 		while (getline(&line, &n, stdin) != -1)
-			command = strtok(line, "#"), get_keywords(av, &cmd_cnt, command);
+		{
+			/* command = strtok(line, "#"); */
+			get_keywords(av, &cmd_cnt, command);
+		}
 	}
 
 	free_ptr(line);
