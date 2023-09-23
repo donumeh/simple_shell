@@ -12,7 +12,7 @@
 ssize_t _getline(char **lineptr, size_t *n, int fd)
 {
 	static char buffer[INITIAL_BUFFER_SIZE];
-	static size_t buffer_position = 0, bytes_in_buffer = 0;
+	static size_t buffer_position, bytes_in_buffer;
 	ssize_t chars_read = 0, found_newline = 0, init_check = 0;
 	size_t line_length = 0;
 
@@ -30,7 +30,6 @@ ssize_t _getline(char **lineptr, size_t *n, int fd)
 				if (line_length > 0)
 				{
 					(*lineptr)[line_length] = '\0';
-					free(buffer);
 					return (chars_read);
 				}
 			}
@@ -44,27 +43,18 @@ ssize_t _getline(char **lineptr, size_t *n, int fd)
 			}
 			(*lineptr)[line_length++] = buffer[buffer_position++];
 		}
-		if (found_newline)
-		{
-			(*lineptr)[line_length] = '\0', buffer_position++;
-			chars_read = line_length + 1;
+		if (newline_check(&found_newline, lineptr, &line_length,
+					&buffer_position, &chars_read) == 0)
 			break;
-		}
 	}
 
-	if ((size_t)chars_read > *n)
-	{
-		*n = chars_read, *lineptr = (char *)realloc(*lineptr, *n);
-		if (*lineptr == NULL)
-			free(buffer);
-			return (-1);
-	}
-	free(buffer);
+	if (chars_check(&chars_read, n, lineptr) == NULL)
+		return (-1);
 	return (chars_read);
 }
 
 /**
- * init_line_ptr - checks the lineptr for error
+ * init_line - checks the lineptr for error
  * @lineptr: the line ptr
  * @n: the number of chars
  *
@@ -84,4 +74,53 @@ ssize_t init_line(char **lineptr, size_t *n)
 			return (-1);
 	}
 	return (0);
+}
+
+
+/**
+ * chars_check - checks the char
+ * @chars_read: the number of chars read
+ * @n: the number of value to read
+ * @lineptr: the buffer to allocate
+ *
+ * Return: void *
+ */
+
+char *chars_check(ssize_t *chars_read, size_t *n, char **lineptr)
+{
+	if ((size_t)*chars_read > *n)
+	{
+		*n = *chars_read;
+		*lineptr = (char *)realloc(*lineptr, *n);
+		if (*lineptr == NULL)
+		{
+			return (NULL);
+		}
+	}
+	return ("nill");
+}
+
+/**
+ * newline_check - checks for new line
+ * @found_newline: to find a newline
+ * @lineptr: allocate mem
+ * @line_length: length alloced
+ * @buffer_position: position of buffer
+ * @chars_read: number of chsrs read
+ *
+ * Return: 0 or -1 if otherwise
+ */
+
+int newline_check(ssize_t *found_newline, char **lineptr,
+		size_t *line_length, size_t *buffer_position,
+		ssize_t *chars_read)
+{
+	if (*found_newline)
+	{
+		(*lineptr)[*line_length] = '\0';
+		*buffer_position += 1;
+		*chars_read = *line_length + 1;
+		return (0);
+	}
+	return (-1);
 }
