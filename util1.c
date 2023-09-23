@@ -68,7 +68,7 @@ int builtin_cmd(char *str, char *line, char **argv, int cnt, char **av)
 		{"env", builtin_env},
 		{"setenv", setenv_builtin},
 		{"unsetenv", unsetenv_builtin},
-		/* {"alias", alias_builtin}, */
+		{"cd", cd_builtin},
 		{NULL, NULL}
 	};
 
