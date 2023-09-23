@@ -90,9 +90,10 @@ void alias_builtin(char *, char **, int, char **);
 
 
 int _atoi(char *);
-ssize_t _getline(char **, size_t *, int);
-ssize_t init_line(char **, size_t *);
-char *chars_check(ssize_t *, size_t *, char **);
-int newline_check(ssize_t *, char **, size_t *, size_t *, ssize_t *);
+/* ssize_t _getline(char **, size_t *, int);
+ * ssize_t init_line(char **, size_t *);
+ * char *chars_check(ssize_t *, size_t *, char **);
+ * int newline_check(ssize_t *, char **, size_t *, size_t *, ssize_t *);
+ */
 
 #endif /* SHELL Header File */
