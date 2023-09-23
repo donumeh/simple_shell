@@ -7,7 +7,6 @@
  * Return: int
  */
 
-
 int _unsetenv(char *name)
 {
 	size_t env_count;
@@ -24,7 +23,6 @@ int _unsetenv(char *name)
 		env_count++;
 		environ_ptr++;
 	}
-
 	new_environ = malloc(sizeof(char *) * (env_count + 1));
 	if (new_environ == NULL)
 		return (-1);

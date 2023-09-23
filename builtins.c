@@ -108,7 +108,7 @@ int _setenv(char *name, char *value, int overwrite)
 
 	if (overwrite || _getenv(name) == NULL)
 	{
-		if (_putenv(env_entry) == 0)
+		if (putenv(env_entry) == 0)
 		{
 			return (0);
 		}
