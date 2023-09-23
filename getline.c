@@ -30,6 +30,7 @@ ssize_t _getline(char **lineptr, size_t *n, int fd)
 				if (line_length > 0)
 				{
 					(*lineptr)[line_length] = '\0';
+					free(buffer);
 					return (chars_read);
 				}
 			}
@@ -55,8 +56,10 @@ ssize_t _getline(char **lineptr, size_t *n, int fd)
 	{
 		*n = chars_read, *lineptr = (char *)realloc(*lineptr, *n);
 		if (*lineptr == NULL)
+			free(buffer);
 			return (-1);
 	}
+	free(buffer);
 	return (chars_read);
 }
 
